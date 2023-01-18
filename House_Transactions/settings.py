@@ -77,8 +77,14 @@ WSGI_APPLICATION = 'House_Transactions.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'ht',  # 使用数据库的名字,数据库必须手动创建
+        'USER': 'root',  # 连接mysql数据库的名字
+        'PASSWORD': '270030',  # 用户对应的密码
+        'HOST':'localhost',  # 指定mysql数据库所在电脑ip
+        'PORT': 3306,  # mysql数据库服务的端口号
     }
 }
 
@@ -127,3 +133,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 上传图片
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'static/media'
