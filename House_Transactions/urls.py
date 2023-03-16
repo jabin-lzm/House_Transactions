@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from buyer.views import *
+from seller.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IndexBuyer.as_view(), name='index'),
+    path('login_buyer/', LoginBuyer.as_view(), name='login_buyer'),
+    path('logout_buyer/', LogoutBuyer.as_view(), name='logout_buyer'),
+    path('register_buyer/', RegisterBuyer.as_view(), name='register_buyer'),
+    path('home_buyer/', HomeBuyer.as_view(), name='home'),
 ]
