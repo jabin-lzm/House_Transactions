@@ -26,10 +26,10 @@ class LoginBuyer(View):
         message = '请检查填写的内容！'
         if login_form.is_valid():
             phone = login_form.cleaned_data['phone']
-            password = login_form.cleaned_data['password']
+            password = login_form.cleaned_data.get('password')
             user = User.objects.filter(phone=phone).first()
-            print(hashcode(password))
-            print(user.password)
+            print(user)
+
             if user.password == hashcode(password):
                 request.session['is_login'] = True
                 request.session['phone'] = user.phone
@@ -89,7 +89,9 @@ class HomeBuyer(View):
     def get(self, request):
         if not request.session.get('is_login', None):
             messages.error(request, '请先登录！')
-            return redirect('/login/')
+            return redirect('/login_buyer/')
+
+        return render(request, 'home_buyer.html', locals())
 
 
 def hashcode(s, salt='17373252'):

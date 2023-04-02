@@ -52,10 +52,10 @@
           <ul class="nav navbar-nav navbar-right">
               {% if request.session.is_login %}
                   <li><a href="#">欢迎，{{ request.session.user_name }} {{ request.session.phone }}</a></li>
-                  <li><a href="/logout_buyer/">登出</a></li>
+                  <li><a href="/logout_buyer/"><span class="glyphicon glyphicon-log-in"></span> 登出</a></li>
               {% else %}
-                  <li><a href="/login_seller/">商家登录</a></li>
-                  <li><a href="/register_buyer/">注册</a></li>
+                  <li><a href="/login_buyer/">用户登录</a></li>
+                  <li><a href="/register_seller/">商家注册</a></li>
               {% endif %}
           </ul>
         </div>

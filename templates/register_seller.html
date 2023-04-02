@@ -1,10 +1,10 @@
-{% extends 'base_buyer.html' %}
-{% block title %}用户注册{% endblock %}
+{% extends 'base_seller.html' %}
+{% block title %}商家注册{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
-          <form class='form-register' action="/register_buyer/" method="post">
+          <form class='form-register' action="/register_seller/" method="post" enctype="multipart/form-data">
               {% if message %}
                   <div class="alert alert-warning">{{ message }}</div>
               {% endif %}
@@ -31,6 +31,11 @@
               <div class="form-group">
                   {{ register_form.password2.label_tag }}
                   {{ register_form.password2 }}
+              </div>
+
+              <div class="form-group">
+                  {{ register_form.license.label_tag }}
+                  <input type="file" name="license" id="id_license"/>
               </div>
 
               <button type="reset" class="btn btn-default pull-left">重置</button>

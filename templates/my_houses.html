@@ -1,0 +1,49 @@
+{% extends 'base_home_seller.html' %}
+{% block title %}我的房源{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+      {% if houses %}
+      <div class="row">
+        {% for house in houses %}
+        <div class="col-md-4" style="margin-bottom: 20px">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{{ house.house_img.url }}" alt="房屋图片">
+            <div class="card-body">
+              <p class="card-text" style="margin-bottom: 0">{{ house.title }} {{ house.acreage }}平米</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ house.area.name }}</small>
+                <div class="btn-group">
+                    <a href="{% url 'house_update' house_id=house.id %}" class="btn btn-sm btn-outline-secondary">编辑</a>
+                    <a href="{% url 'house_delete' house_id=house.id %}" class="btn btn-sm btn-outline-secondary">删除</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+      <div class="text-center" style="margin-top: 10px">
+        <a href="{% url 'house_create' %}" class="btn btn-primary">添加</a>
+      </div>
+      {% else %}
+      <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+        <div class="text-center" style="margin-top: 30px;">
+           <p style="font-size: 30px; margin: 100px 0 0 0">您还没有添加房源</p>
+           <a href="{% url 'house_create' %}" class="btn btn-primary" style="margin-top: 50px">添加房源</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <style>
+        .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
+
+{% endblock %}
+

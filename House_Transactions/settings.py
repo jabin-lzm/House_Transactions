@@ -66,6 +66,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # 在前端模板读取用户上传的图片的设置
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -141,4 +144,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 上传图片
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'static/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+
+# # 缓存设置, 可以使用redis，解决重启服务器后，登入确实买家
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
+#
+# # session 设置
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_CACHE_ALIAS = 'default'

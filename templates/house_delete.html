@@ -1,0 +1,22 @@
+{% extends 'base_home_seller.html' %}
+{% block title %}删除房源{% endblock %}
+
+{% block content %}
+    <div class="card mb-3 text-center">
+        <div class="card-body">
+            <p class="card-title">{{ house.title }}</p>
+            <img class="card-img-top" src="{{ house.house_img.url }}" alt="房屋图片">
+            <p class="card-text"><small class="text-muted">{{ house.area.name }}</small></p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">确认删除</button>
+                <a href="/my_houses/" class="btn btn-primary">返回我的房源</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
