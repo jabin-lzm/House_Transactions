@@ -1,0 +1,68 @@
+{% extends 'base_home_buyer.html' %}
+{% block title %}搜索页面{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-inline" method="get" action="{% url 'buyer_search' %}">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="keyword">搜索关键词:</label>
+                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="输入省市地址或房屋标题">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">搜索</button>
+                </form>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 25px">
+            <div class="col-md-12">
+                {% if houses %}
+                    <h2>搜索结果</h2>
+                    <ol>
+                        {% for house in houses %}
+                            <li><a href="{% url 'buyer_house' house.id %}">{{ house.title }} - {{ house.specs }}
+                                - {{ house.acreage }} - {{ house.price }} - {{ house.area }}</a></li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    <h2>没有搜索或者没有搜到符合条件的房源</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <style>
+        .form-inline .form-control {
+            width: 512px;
+        }
+
+        label {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        ol {
+            font-size: 18px;
+            list-style: none;
+            counter-reset: my-counter;
+        }
+
+        ol li {
+            counter-increment: my-counter;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        ol li:before {
+            content: counter(my-counter) ". ";
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}

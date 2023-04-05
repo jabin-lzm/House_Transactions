@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
             <li {% if request.path == '/home_buyer/' %}class="active"{% endif %}><a href="{% url 'home_buyer' %}">主页</a></li>
-            <li><a href="#">搜索房源</a></li>
+            <li {% if request.path == '/buyer_search/' %}class="active"{% endif %}><a href="{% url 'buyer_search' %}">搜索房源</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> 我的消息 </a></li>
@@ -38,5 +38,7 @@
         </div>
       </div>
     </nav>
+    {#  这句很重要 ，后面的html需要extend这个页面，内容就放下吗的block上  #}
+    {% block content %}{% endblock %}
 </body>
 </html>

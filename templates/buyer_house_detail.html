@@ -1,0 +1,25 @@
+{% extends 'base_home_seller.html' %}
+{% block title %}房源详情{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="card-body text-center">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ house.title }}</li>
+                <li class="list-group-item">地址：{{ house.area }}</li>
+                <li class="list-group-item">面积：{{ house.acreage }}</li>
+                <li class="list-group-item">价格：{{ house.price }}</li>
+                <li class="list-group-item">简介：{{ house.introduction }}</li>
+                <li class="list-group-item">
+                    <img src="{{ house.house_img.url }}" alt="{{ house.title }}" class="img-fluid mb-4">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <style>
+        .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
+{% endblock %}

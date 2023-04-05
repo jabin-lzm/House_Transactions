@@ -28,6 +28,8 @@ urlpatterns = [
     path('logout_buyer/', LogoutBuyer.as_view(), name='logout_buyer'),
     path('register_buyer/', RegisterBuyer.as_view(), name='register_buyer'),
     path('home_buyer/', HomeBuyer.as_view(), name='home_buyer'),
+    path('buyer_house_detail/<int:house_id>/', BuyerHouseDetail.as_view(), name='buyer_house'),
+    path('buyer_search/', SearchView.as_view(), name='buyer_search'),
 
     path('login_seller/', LoginSeller.as_view(), name='login_seller'),
     path('logout_seller/', LogoutSeller.as_view(), name='logout_seller'),
