@@ -30,6 +30,8 @@ urlpatterns = [
     path('home_buyer/', HomeBuyer.as_view(), name='home_buyer'),
     path('buyer_house_detail/<int:house_id>/', BuyerHouseDetail.as_view(), name='buyer_house'),
     path('buyer_search/', SearchView.as_view(), name='buyer_search'),
+    path('buyer_messages/', BuyerMessages.as_view(), name='buyer_messages'),
+    path('buyer_send_message/', BuyerSendMessage.as_view(), name='buyer_send_message'),
 
     path('login_seller/', LoginSeller.as_view(), name='login_seller'),
     path('logout_seller/', LogoutSeller.as_view(), name='logout_seller'),
@@ -41,6 +43,8 @@ urlpatterns = [
     path('my_houses/detail/<int:house_id>/', HouseDetailView.as_view(), name='house_detail'),
     path('my_houses/update/<int:house_id>/', HouseUpdateView.as_view(), name='house_update'),
     path('my_houses/delete/<int:house_id>/', HouseDeleteView.as_view(), name='house_delete'),
+    path('seller_messages/', SellerMessages.as_view(), name='seller_messages'),
+    path('seller_send_message/', SellerSendMessage.as_view(), name='seller_send_message'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

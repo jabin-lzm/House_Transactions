@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from buyer.forms import LoginForm, RegisterForm, SearchForm
-from buyer.models import User, Log
+from buyer.models import User, Log, Message
+
 from seller.models import House, Area
+from seller.models import Message as M
+from seller.models import User as U
+
 import hashlib
 from django.contrib import messages
 import requests
@@ -166,6 +170,47 @@ class SearchView(View):
             houses = House.objects.filter(Q(area__name__contains=keyword) | Q(title__icontains=keyword))
 
         return render(request, 'search.html', locals())
+
+
+class BuyerMessages(View):
+    # 展示消息
+    def get(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_buyer/')
+
+        # buyer = User.objects.filter(phone=request.session['phone']).first()
+        message_list = M.objects.filter(receiver_id=request.session['phone'])
+        print(message_list)
+
+        return render(request, 'messages_buyer.html', {'messages': message_list})
+
+
+class BuyerSendMessage(View):
+    """ 发送消息 """
+    def get(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_buyer/')
+
+        return render(request, 'buyer_send_message.html', locals())
+
+    def post(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_buyer/')
+
+        phone_buyer = request.POST.get('phone')
+        content_buyer = request.POST.get('content')
+
+        sender = User.objects.filter(phone=request.session['phone']).first()
+        receiver = U.objects.filter(phone=phone_buyer).first()
+
+        message = Message(sender=sender, receiver=receiver, content=content_buyer)
+        message.save()
+        messages.success(request, '消息发送成功.')
+
+        return redirect('/buyer_messages/')
 
 
 def hashcode(s, salt='17373252'):

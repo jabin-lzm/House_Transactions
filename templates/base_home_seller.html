@@ -37,7 +37,7 @@
             <li {% if request.path == '/my_houses/' %}class="active"{% endif %}><a href="{% url 'my_houses' %}">我的房源</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 我的消息 </a></li>
+            <li {% if request.path == '/seller_messages/' %}class="active"{% endif %}><a href="{% url 'seller_messages' %}">我的消息</a></li>
             <li><a href="/logout_seller/"><span class="glyphicon glyphicon-log-in"></span> 登出</a></li>
           </ul>
         </div>

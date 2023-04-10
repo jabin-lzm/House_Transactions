@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +42,12 @@ INSTALLED_APPS = [
     'buyer.apps.BuyerConfig',
     'seller.apps.SellerConfig',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

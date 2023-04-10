@@ -1,0 +1,31 @@
+{% extends 'base_home_buyer.html' %}
+{% block title %}我的消息{% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+      {% if messages %}
+      <div class="row">
+        {% for message in messages %}
+             <p style="font-size: 20px">北京时间：{{ message.created_at }} - 来自于 {{ message.sender_id }} 的消息 ：{{ message.content }}</p>
+        {% endfor %}
+      </div>
+      <div class="text-center" style="margin-top: 520px">
+        <a href="{% url 'buyer_send_message'%}" class="btn btn-primary">发消息</a>
+      </div>
+      {% else %}
+      <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+        <div class="text-center" style="margin-top: 30px;">
+           <p style="font-size: 30px; margin: 100px 0 0 0">您没有消息</p>
+           <a href="{% url 'buyer_send_message'%}" class="btn btn-primary" style="margin-top: 50px">发消息</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <style>
+        .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
+{% endblock %}

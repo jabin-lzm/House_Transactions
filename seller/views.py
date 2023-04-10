@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from seller.forms import LoginForm, RegisterForm, CreateForm, SellerUpdateForm
-from seller.models import User, Log, House, HouseImage, Area
+from seller.models import User, Log, House, HouseImage, Area, Message
+
+from buyer.models import User as U
+from buyer.models import Message as M
+
 import hashlib
 from django.contrib import messages
 
@@ -285,6 +289,46 @@ class HouseDeleteView(View):
         Log.objects.create(user_id=user.phone, action="删除房源")
         messages.success(request, '删除成功！')
         return redirect('/my_houses/')
+
+
+class SellerMessages(View):
+    # 展示消息
+    def get(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_seller/')
+
+        seller = User.objects.filter(phone=request.session['phone']).first()
+        message_list = M.objects.filter(receiver=seller)
+
+        return render(request, 'messages_seller.html', {'messages': message_list})
+
+
+class SellerSendMessage(View):
+    """ 发送消息 """
+    def get(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_seller/')
+
+        return render(request, 'seller_send_message.html', locals())
+
+    def post(self, request):
+        if not request.session.get('is_login', None):
+            messages.error(request, '请先登录！')
+            return redirect('/login_seller/')
+
+        phone_seller = request.POST.get('phone')
+        content_seller = request.POST.get('content')
+
+        sender = User.objects.filter(phone=request.session['phone']).first()
+        receiver = U.objects.filter(phone=phone_seller).first()
+
+        message = Message(sender=sender, receiver=receiver, content=content_seller)
+        message.save()
+        messages.success(request, '消息发送成功.')
+
+        return redirect('/seller_messages/')
 
 
 def hashcode(s, salt='17373252'):
